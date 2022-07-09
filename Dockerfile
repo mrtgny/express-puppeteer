@@ -23,4 +23,4 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 # Run everything after as non-privileged user.
 USER pptruser
 
-CMD ["npm", "run start-prod"]
+CMD ["npm", "start-prod"]
