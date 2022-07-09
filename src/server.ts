@@ -20,9 +20,9 @@ const getPDF = async (path: string) => {
 }
 
 app.get('/', async (req, res) => {
-    const path = req.query.path as string;
-    const fileName = (req.query.fileName as string) || `${path}.pdf`;
-    const fileContents = await getPDF(path);
+    const url = req.query.url as string;
+    const fileName = (req.query.fileName as string) || `${url}.pdf`;
+    const fileContents = await getPDF(url);
 
     var readStream = new stream.PassThrough();
     readStream.end(fileContents);
