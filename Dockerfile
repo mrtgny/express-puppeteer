@@ -2,10 +2,8 @@ FROM node
 
 COPY . .
 
-RUN npm install
-
+RUN npm install && npm build
 EXPOSE 4000
-
 
 RUN apt-get update \
     && apt-get install -y wget gnupg \
@@ -25,4 +23,4 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 # Run everything after as non-privileged user.
 USER pptruser
 
-CMD ["npm", "start"]
+CMD ["npm", "run start-prod"]

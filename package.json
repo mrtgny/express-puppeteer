@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon ./src/server.ts"
+    "start": "npx nodemon ./src/server.ts",
+    "build": "npx tsc",
+    "start-prod": "node ./dist/server/server.js"
   },
   "keywords": [],
   "author": "",
