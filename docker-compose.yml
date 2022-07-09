@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nodejs-server:
+    build:
+      context: ./
+    ports:
+      - "4444:4000"
+    container_name: pdf-service
+    restart: always
+    volumes:
+      - ./:/usr/src/app/mrtgny/website
+      - /usr/src/app/mrtgny/website/node_modules
