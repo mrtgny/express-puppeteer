@@ -2,7 +2,7 @@ FROM node
 
 COPY . .
 
-RUN npm install && npm build
+RUN npm install && npm run build
 EXPOSE 4000
 
 RUN apt-get update \
