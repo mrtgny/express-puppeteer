@@ -6,7 +6,9 @@ services:
     ports:
       - "4444:4000"
     container_name: pdf-service
+    privileged: true
     restart: always
+    entrypoint: npm run start-prod
     volumes:
       - ./:/usr/src/app/mrtgny/website
       - /usr/src/app/mrtgny/website/node_modules
