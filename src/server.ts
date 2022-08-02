@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import puppeteer from "puppeteer";
 import stream from "stream";
@@ -5,6 +6,7 @@ import stream from "stream";
 const PORT = 4000;
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
