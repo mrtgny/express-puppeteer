@@ -9,6 +9,3 @@ services:
     privileged: true
     restart: always
     entrypoint: npm run start-prod
-    volumes:
-      - ./:/usr/src/app/mrtgny/website
-      - /usr/src/app/mrtgny/website/node_modules
