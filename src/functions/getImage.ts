@@ -6,7 +6,11 @@ import { ImageType } from "../utils/types";
 
 export const getImageRoute = async (req: Request, res: Response) => {
     const url = req.query.url as string;
-    const type = (req.query.type as ImageType) || "png";
+    const type: ImageType = (req.query.type as ImageType) || "png";
+
+    const qualityValue = parseFloat(req.query.quality as string);
+    const quality = type !== "jpeg" ? undefined : !isNaN(qualityValue) ? qualityValue : 100;
+
     const omitBackground = (req.query.omitBackground as string) === "true";
     const fullPage = !req.query.fullPage || (req.query.fullPage as string) === "true";
     const download = (req.query.download as string) === "true";
@@ -18,7 +22,7 @@ export const getImageRoute = async (req: Request, res: Response) => {
     const height = parseFloat(req.query.height as string);
     const sendClip = !isNaN(x) && !isNaN(y) && !isNaN(width) && !isNaN(height);
     const clip: ScreenshotClip = { x, y, width, height }
-    const options: ScreenshotOptions = { omitBackground, type, fullPage }
+    const options: ScreenshotOptions = { omitBackground, type, fullPage, quality }
     if (sendClip) options.clip = clip;
 
     const fileContents = await getImage(url, options);
