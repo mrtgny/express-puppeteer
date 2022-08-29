@@ -4,8 +4,8 @@ import { IAppRoute } from "../utils/types";
 
 const pdfRoutes: IAppRoute = {
     public(app) {
-        app.post("/pdf", getPDFRoute);
-        app.post("/image", getImageRoute);
+        app.get("/pdf", getPDFRoute);
+        app.get("/image", getImageRoute);
     },
     private(app) {
 
