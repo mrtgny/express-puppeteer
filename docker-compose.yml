@@ -5,7 +5,7 @@ services:
       context: ./
     ports:
       - "4444:4000"
-    container_name: pdf-service
+    container_name: puppeteer-service
     privileged: true
     restart: always
     entrypoint: npm run start-prod
