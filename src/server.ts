@@ -3,7 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import { initRoutes } from "./routes";
 
-const PORT = 4011;
+const PORT = 4000;
 const app = express();
 
 app.use(cors())
