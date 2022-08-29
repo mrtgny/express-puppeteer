@@ -15,7 +15,6 @@ export const getPDF = async (path: string, options: PDFOptions = {}) => {
 
 export const getImage = async (path: string, options: ScreenshotOptions = {}) => {
     const _options: ScreenshotOptions = {
-        quality: 100,
         fullPage: true,
         ...options
     }

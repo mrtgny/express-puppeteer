@@ -12,7 +12,8 @@ export const getPDFRoute = async (req: Request, res: Response) => {
     const headerTemplate = (req.query.headerTemplate as string);
     const height = req.query.height as string;
     const width = req.query.width as string;
-    const scale = parseFloat(req.query.scale as string);
+    const scaleValue = parseFloat(req.query.scale as string);
+    const scale = isNaN(scaleValue) ? undefined : scaleValue
     const preferCSSPageSize = (req.query.preferCSSPageSize as string) === "true";
     const pageRanges = req.query.pageRanges as string;
     const landscape = (req.query.landscape as string) === "true";
