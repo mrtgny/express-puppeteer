@@ -4,7 +4,8 @@ import stream from "stream";
 import { getPDF } from "../utils/functions";
 
 export const getPDFRoute = async (req: Request, res: Response) => {
-    const url = req.query.url as string;
+    const reqUrl = req.query.url as string;
+    const url = reqUrl.indexOf("http") === 0 ? reqUrl : `http://${reqUrl}`;
     const download = (req.query.download as string) === "true";
     const displayHeaderFooter = (req.query.displayHeaderFooter as string) === "true";
     const footerTemplate = req.query.footerTemplate as string;

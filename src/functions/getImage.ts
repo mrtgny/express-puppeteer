@@ -5,7 +5,8 @@ import { getImage } from "../utils/functions";
 import { ImageType } from "../utils/types";
 
 export const getImageRoute = async (req: Request, res: Response) => {
-    const url = req.query.url as string;
+    const reqUrl = req.query.url as string;
+    const url = reqUrl.indexOf("http") === 0 ? reqUrl : `http://${reqUrl}`;
     const type: ImageType = (req.query.type as ImageType) || "png";
 
     const qualityValue = parseFloat(req.query.quality as string);
