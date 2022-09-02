@@ -7,5 +7,6 @@ services:
       - "4444:4000"
     container_name: puppeteer-service
     privileged: true
+    #platform: linux/arm64
     restart: always
     entrypoint: npm run start-prod
