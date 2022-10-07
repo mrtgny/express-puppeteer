@@ -37,8 +37,6 @@ services:
       - puppeteer-service1
       - puppeteer-service2
       - puppeteer-service3
-      - puppeteer-service4
-      - puppeteer-service5
     ports:
       - "4444:6000"
     volumes:
