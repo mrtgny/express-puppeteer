@@ -6,6 +6,12 @@ import { initRoutes } from "./routes";
 const PORT = 4000;
 const app = express();
 
+const oldLogger = console.log;
+console.log = (...args) => {
+    const time = (new Date()).toLocaleString();
+    oldLogger(time, ...args);
+}
+
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

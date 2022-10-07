@@ -9,7 +9,7 @@ export const getImageRoute = async (req: Request, res: Response) => {
 
         const reqUrl = req.query.url as string;
         const url = reqUrl.indexOf("http") === 0 ? reqUrl : `http://${reqUrl}`;
-        const type: ImageType = (req.query.type as ImageType) || "png";
+        const type: ImageType = (req.query.type as ImageType) || "jpeg";
 
         const qualityValue = parseFloat(req.query.quality as string);
         const quality = type !== "jpeg" ? undefined : !isNaN(qualityValue) ? qualityValue : 100;
