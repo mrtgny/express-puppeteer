@@ -1,7 +1,7 @@
 # Installation
-- Make sure the ports "4000" and "5435" are available on your end!
+- Make sure the ports "6000","6001", "6002", and "6003" are available on your end!
 ```
-docker-compose up -d --build --scale puppeteer-service=3
+docker-compose up -d --build
 ```
 
 # Clean
