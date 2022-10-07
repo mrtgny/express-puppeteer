@@ -1,51 +1,8 @@
 version: '3'
 services:
-  puppeteer-service1:
+  puppeteer-service:
     build:
       context: ./
-    ports:
-      - "6001:4000"
-    container_name: puppeteer-service1
-    privileged: true
-    #platform: linux/arm64
-    restart: always
-    entrypoint: npm run start-prod
-  puppeteer-service2:
-    build:
-      context: ./
-    ports:
-      - "6002:4000"
-    container_name: puppeteer-service2
-    privileged: true
-    #platform: linux/arm64
-    restart: always
-    entrypoint: npm run start-prod
-  puppeteer-service3:
-    build:
-      context: ./
-    ports:
-      - "6003:4000"
-    container_name: puppeteer-service3
-    privileged: true
-    #platform: linux/arm64
-    restart: always
-    entrypoint: npm run start-prod
-  puppeteer-service4:
-    build:
-      context: ./
-    ports:
-      - "6004:4000"
-    container_name: puppeteer-service4
-    privileged: true
-    #platform: linux/arm64
-    restart: always
-    entrypoint: npm run start-prod
-  puppeteer-service5:
-    build:
-      context: ./
-    ports:
-      - "6005:4000"
-    container_name: puppeteer-service5
     privileged: true
     #platform: linux/arm64
     restart: always
@@ -54,11 +11,7 @@ services:
     image: nginx:alpine
     restart: always
     depends_on:
-      - puppeteer-service1
-      - puppeteer-service2
-      - puppeteer-service3
-      - puppeteer-service4
-      - puppeteer-service5
+      - puppeteer-service
     ports:
       - "4444:6000"
     volumes:
