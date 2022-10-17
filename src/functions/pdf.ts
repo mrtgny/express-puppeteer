@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { PaperFormat, PDFOptions } from "puppeteer";
-import stream from "stream";
-import { getPDF } from "../utils/functions";
+import { getPDF, writeStream } from "../utils/functions";
+import { setCache } from "./cache";
 
 export const getPDFRoute = async (req: Request, res: Response) => {
     console.log("request is came")
@@ -31,15 +31,11 @@ export const getPDFRoute = async (req: Request, res: Response) => {
         console.log("GETTING PDF")
         const fileContents = await getPDF(url, options);
         console.log("GOT PDF")
-
-        var readStream = new stream.PassThrough();
-        readStream.end(fileContents);
-
         if (download)
             res.set('Content-disposition', `attachment; filename=${fileName}`);
         res.set('Content-Type', 'application/pdf');
-
-        readStream.pipe(res);
+        writeStream(fileContents, res)
+        setCache(req, fileContents);
     } catch (error) {
         console.log("error", error);
         res.status(400).send({

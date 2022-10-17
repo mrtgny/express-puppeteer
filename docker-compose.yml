@@ -6,6 +6,10 @@ services:
     ports:
       - "6001:4000"
     container_name: puppeteer-service1
+    depends_on:
+      - "redis-server"
+    links:
+      - "redis-server"
     privileged: true
     #platform: linux/arm64
     restart: always
@@ -16,6 +20,10 @@ services:
     ports:
       - "6002:4000"
     container_name: puppeteer-service2
+    depends_on:
+      - "redis-server"
+    links:
+      - "redis-server"
     privileged: true
     #platform: linux/arm64
     restart: always
@@ -26,6 +34,10 @@ services:
     ports:
       - "6003:4000"
     container_name: puppeteer-service3
+    depends_on:
+      - "redis-server"
+    links:
+      - "redis-server"
     privileged: true
     #platform: linux/arm64
     restart: always
@@ -42,3 +54,7 @@ services:
     volumes:
       - ./conf.d/balance.conf:/etc/nginx/conf.d/balance.conf
       - ./conf.d/nginx.conf:/etc/nginx/nginx.conf
+  redis-server:
+    image: redis
+    restart: always
+    container_name: puppeteer-redis-server

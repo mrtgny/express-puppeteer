@@ -1,5 +1,10 @@
+import { Response } from "express";
 import { PDFOptions, ScreenshotOptions } from "puppeteer";
+import { createClient, RedisClientType } from 'redis';
+import stream from "stream";
 import { getBrowser } from "./constants";
+
+export const isProd = () => process.env.NODE_ENV === "production";
 
 export const getPDF = async (path: string, options: PDFOptions = {}) => {
     const PDFOptions: PDFOptions = {
@@ -28,8 +33,7 @@ export const getPDF = async (path: string, options: PDFOptions = {}) => {
     }
 }
 
-export const getImage = async (path: string, options: ScreenshotOptions = {}) => {
-
+export const getImage: (path: string, options: ScreenshotOptions) => Promise<Buffer> = async (path: string, options: ScreenshotOptions = {}) => {
 
     const _options: ScreenshotOptions = {
         fullPage: true,
@@ -52,9 +56,40 @@ export const getImage = async (path: string, options: ScreenshotOptions = {}) =>
         console.log("getImage: Page is closing");
         await page.close();
         console.log("getImage: Page is closed");
-        return buffeer;
+        return buffeer as Buffer;
     } catch (error) {
         page.close();
         throw Error(error)
     }
 }
+
+export const initLogger = () => {
+    const oldLogger = console.log;
+    console.log = (...args) => {
+        const time = (new Date()).toLocaleString();
+        oldLogger(time, ...args);
+    }
+}
+
+
+let cacheClient: RedisClientType;
+export const getCacheClient = () => cacheClient;
+export const initRedis = async (url = "redis://redis-server:6379") => {
+    if (!!cacheClient) return cacheClient;
+    const client = createClient({
+        url,
+    });
+    console.log('Initializing Redis client for', url)
+    client.on('error', (err) => console.log('Redis Client Error', err));
+
+    await client.connect();
+    cacheClient = client as RedisClientType;
+}
+
+export const writeStream = (buffer: Buffer, response: Response) => {
+    var readStream = new stream.PassThrough();
+    readStream.end(buffer);
+    readStream.pipe(response);
+}
+
+

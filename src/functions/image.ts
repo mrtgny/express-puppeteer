@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { ScreenshotClip, ScreenshotOptions } from "puppeteer";
-import stream from "stream";
-import { getImage } from "../utils/functions";
+import { getImage, writeStream } from "../utils/functions";
 import { ImageType } from "../utils/types";
+import { setCache } from "./cache";
 
 export const getImageRoute = async (req: Request, res: Response) => {
     try {
@@ -32,14 +32,12 @@ export const getImageRoute = async (req: Request, res: Response) => {
         const fileContents = await getImage(url, options);
         console.log("GOT IMAGE")
 
-        var readStream = new stream.PassThrough();
-        readStream.end(fileContents);
-
-        if (download)
+        if (download) {
             res.set('Content-disposition', `attachment; filename=${fileName}`);
+        }
         res.set('Content-Type', `image/${type}`);
-
-        readStream.pipe(res);
+        writeStream(fileContents, res)
+        setCache(req, fileContents);
     } catch (error) {
         console.log("error", error);
         res.status(400).send({

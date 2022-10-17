@@ -2,16 +2,13 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import { initRoutes } from "./routes";
+import { initLogger, initRedis } from "./utils/functions";
 
 const PORT = 4000;
 const app = express();
 
-const oldLogger = console.log;
-console.log = (...args) => {
-    const time = (new Date()).toLocaleString();
-    oldLogger(time, ...args);
-}
-
+initLogger();
+initRedis();
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
