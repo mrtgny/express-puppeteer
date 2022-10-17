@@ -14,7 +14,9 @@ export const setCache = async (request: Request, content: Buffer | string) => {
     const hashKey = getCacheKey(request);
     const cacheClient = getCacheClient();
     if (!cacheClient) return;
-    await cacheClient.set(hashKey, content.toString("hex"));
+    await cacheClient.set(hashKey, content.toString("hex"), {
+        EX: 60 * 60 * 24
+    });
 }
 
 export const getCache = async (request: Request, response: Response) => {
