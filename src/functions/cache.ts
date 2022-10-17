@@ -6,7 +6,7 @@ const getCacheKey = (request: Request) => {
     const { url, query, body, headers } = request;
     const stringToHash = `${url}_${JSON.stringify(query)}_${JSON.stringify(body)}_${JSON.stringify(headers)}`;
     const hashKey = md5(stringToHash);
-    console.log("hash", stringToHash, "for", url)
+    console.log("hash", hashKey, "for", url)
     return hashKey
 }
 
