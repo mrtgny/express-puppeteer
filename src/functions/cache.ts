@@ -4,10 +4,8 @@ import { getCacheClient, writeStream } from "../utils/functions";
 
 const getCacheKey = (request: Request) => {
     const { url, query, body, headers } = request;
-    console.log("hash headers", headers);
     const stringToHash = `${url}_${JSON.stringify(query)}_${JSON.stringify(body)}_${JSON.stringify(headers)}`;
     const hashKey = md5(stringToHash);
-    console.log("hash", hashKey, "for", url, stringToHash)
     return hashKey
 }
 
@@ -16,9 +14,7 @@ export const setCache = async (request: Request, content: Buffer | string) => {
     const hashKey = getCacheKey(request);
     const cacheClient = getCacheClient();
     if (!cacheClient) return;
-    console.log("for url", url, "cached content", content, !!content.toString("hex"))
     await cacheClient.set(hashKey, content.toString("hex"));
-    console.log("Cache set into redis with hash", hashKey, "for url", url)
 }
 
 export const getCache = async (request: Request, response: Response) => {
@@ -29,7 +25,6 @@ export const getCache = async (request: Request, response: Response) => {
     if (!cacheClient) return;
     const buffer = await cacheClient.get(hashKey);
     if (!buffer) {
-        console.log("hashkey", hashKey, "for url", url, "cache not found", buffer);
         throw Error(`hashkey ${hashKey} for url ${url} cache not found ${buffer}`)
     }
     writeStream(Buffer.from(buffer, "hex"), response)
