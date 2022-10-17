@@ -27,8 +27,11 @@ export const getCache = async (request: Request, response: Response) => {
     const cacheClient = getCacheClient();
     if (!cacheClient) return;
     const buffer = await cacheClient.get(hashKey);
+    if (!buffer) {
+        console.log("hashkey", hashKey, "for url", url, "cache not found", buffer);
+        throw Error(`hashkey ${hashKey} for url ${url} cache not found ${buffer}`)
+    }
     writeStream(Buffer.from(buffer, "hex"), response)
-    if (!isProd())
-        console.log("Cache found in redis for url", url)
+    console.log("Cache found in redis for url", url)
     return response;
 }
