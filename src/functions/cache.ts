@@ -15,6 +15,7 @@ export const setCache = async (request: Request, content: Buffer | string) => {
     const hashKey = getCacheKey(request);
     const cacheClient = getCacheClient();
     if (!cacheClient) return;
+    console.log("for url", url, "cached content", content, content.toString("hex"))
     await cacheClient.set(hashKey, content.toString("hex"));
     if (!isProd())
         console.log("Cache set into redis for url", url)
