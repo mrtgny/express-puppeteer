@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx nodemon ./src/index.ts",
     "build": "npx tsc",
-    "start-prod": "node ./dist/server/index.js"
+    "start-prod": "NODE_ENV=production node ./dist/server/index.js"
   },
   "keywords": [],
   "author": "",
