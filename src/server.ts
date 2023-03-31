@@ -9,15 +9,13 @@ const app = express();
 
 initLogger();
 initRedis();
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("tiny"))
+app.use(morgan("tiny"));
 
 export const initServer = async () => {
-    await initRoutes(app);
-    app.listen(PORT)
-    console.log(
-        `🚀 Query endpoint ready at http://localhost:${PORT}`
-    );
-}
+  await initRoutes(app);
+  app.listen(PORT);
+  console.log(`🚀 Query endpoint ready at http://localhost:${PORT}`);
+};
