@@ -9,16 +9,10 @@ const cacheMiddleware = async (
   const isOptionRequest = req.method === "OPTIONS";
   if (!isOptionRequest) {
     try {
-      try {
-        await getCache(req, res);
-      } catch (error) {
-        console.log("cache not found", req.url, error);
-        next();
-      }
+      await getCache(req, res);
     } catch (error) {
-      return res
-        .status(403)
-        .send({ message: "Invalid auth token provided.", error });
+      console.log("cache not found", req.url, error);
+      next();
     }
   } else {
     next();
