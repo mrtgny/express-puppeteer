@@ -16,8 +16,11 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 RUN yarn add puppeteer@13.5.0
 
 FROM base as build
-COPY . .
+
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --network-timeout 100000
+COPY . .
+
 RUN npm run build
 
 FROM base as prod
