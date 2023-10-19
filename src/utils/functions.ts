@@ -48,6 +48,9 @@ export const getImage: (
   const browser = getBrowser();
   console.log("getImage: New page is opening", browser);
   const page = await browser.newPage();
+  await page.setUserAgent(
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
+  );
   try {
     console.log("getImage: New page is opened", browser);
     console.log("getImage: URL is opening", path);
