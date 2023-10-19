@@ -6,7 +6,15 @@ import pdfRoutes from "../methods/pdf";
 import { setBrowser } from "../utils/constants";
 
 export const initRoutes = async (app: Express) => {
-  const browser = await launch();
+  const browser = await launch({
+    headless: true,
+    devtools: true,
+    args: [
+      "--disable-web-security",
+      "--disable-features=IsolateOrigins",
+      "--disable-site-isolation-trials",
+    ],
+  });
   console.log("browser is launched");
   setBrowser(browser);
   commonMiddlewareRoutes.public(app);

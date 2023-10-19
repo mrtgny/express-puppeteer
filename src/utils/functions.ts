@@ -15,6 +15,11 @@ export const getPDF = async (path: string, options: PDFOptions = {}) => {
   const browser = getBrowser();
   console.log("getPDF: browser is launched");
   const page = await browser.newPage();
+  await page.setUserAgent(
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
+  );
+  await page.setBypassCSP(true);
+
   try {
     console.log("getPDF: New page is opened");
     console.log("getPDF: URL is opening", path);
@@ -51,6 +56,8 @@ export const getImage: (
   await page.setUserAgent(
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
   );
+  await page.setBypassCSP(true);
+
   try {
     console.log("getImage: New page is opened", browser);
     console.log("getImage: URL is opening", path);
