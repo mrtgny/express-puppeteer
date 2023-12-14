@@ -50,9 +50,9 @@ services:
       - puppeteer-service2
       - puppeteer-service3
     ports:
-      - "4444:6000"
+      - "4444:80"
     volumes:
-      - ./conf.d/balance.conf:/etc/nginx/conf.d/balance.conf
+      - ./conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - ./conf.d/nginx.conf:/etc/nginx/nginx.conf
   redis-server:
     image: redis
