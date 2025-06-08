@@ -12,7 +12,7 @@ export const getPDF = async (path: string, options: PDFOptions = {}) => {
     ...options,
   };
   console.log("getPDF: browser is launching");
-  const browser = getBrowser();
+  const browser = await getBrowser();
   console.log("getPDF: browser is launched");
   const page = await browser.newPage();
   await page.setUserAgent(
@@ -30,10 +30,12 @@ export const getPDF = async (path: string, options: PDFOptions = {}) => {
     console.log("getPDF: Buffer is got");
     console.log("getPDF: page is closing");
     await page.close();
+    await browser.close();
     console.log("getPDF: page is closed");
     return buffeer;
   } catch (error) {
-    page.close();
+    await page.close();
+    await browser.close();
     throw Error(error as string);
   }
 };
@@ -50,7 +52,7 @@ export const getImage: (
     ...options,
   };
   _options.path = undefined;
-  const browser = getBrowser();
+  const browser = await getBrowser();
   console.log("getImage: New page is opening", browser);
   const page = await browser.newPage();
   await page.setUserAgent(
@@ -70,10 +72,12 @@ export const getImage: (
     console.log("getImage: Buffer is got");
     console.log("getImage: Page is closing");
     await page.close();
+    await browser.close();
     console.log("getImage: Page is closed");
     return buffeer as Buffer;
   } catch (error) {
-    page.close();
+    await page.close();
+    await browser.close();
     throw Error(error as string);
   }
 };

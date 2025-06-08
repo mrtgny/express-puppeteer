@@ -1,9 +1,14 @@
-import { Browser } from "puppeteer";
+import { Browser, launch } from "puppeteer";
 
 let browser: Browser;
 
-export const getBrowser = () => browser;
-export const setBrowser: (browser: Browser) => Browser = (_browser) => {
-  browser = _browser;
-  return browser;
-};
+export const getBrowser = async () =>
+  await launch({
+    headless: true,
+    devtools: true,
+    args: [
+      "--disable-web-security",
+      "--disable-features=IsolateOrigins",
+      "--disable-site-isolation-trials",
+    ],
+  });

@@ -1,22 +1,9 @@
 import { Express } from "express";
-import { launch } from "puppeteer";
 import commonMiddlewareRoutes from "../methods/common_middlewares";
 import imageRoutes from "../methods/image";
 import pdfRoutes from "../methods/pdf";
-import { setBrowser } from "../utils/constants";
 
 export const initRoutes = async (app: Express) => {
-  const browser = await launch({
-    headless: true,
-    devtools: true,
-    args: [
-      "--disable-web-security",
-      "--disable-features=IsolateOrigins",
-      "--disable-site-isolation-trials",
-    ],
-  });
-  console.log("browser is launched");
-  setBrowser(browser);
   commonMiddlewareRoutes.public(app);
   pdfRoutes.public(app);
   imageRoutes.public(app);
