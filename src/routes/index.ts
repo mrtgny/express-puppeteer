@@ -8,16 +8,11 @@ import { setBrowser } from "../utils/constants";
 export const initRoutes = async (app: Express) => {
   const browser = await launch({
     headless: true,
+    devtools: true,
     args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu",
-      "--single-process",
-      "--no-zygote",
-      "--disable-background-timer-throttling",
-      "--disable-backgrounding-occluded-windows",
-      "--disable-renderer-backgrounding",
+      "--disable-web-security",
+      "--disable-features=IsolateOrigins",
+      "--disable-site-isolation-trials",
     ],
   });
   console.log("browser is launched");
