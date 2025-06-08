@@ -48,8 +48,8 @@ export const getPDFRoute = async (req: Request, res: Response) => {
     if (download)
       res.set("Content-disposition", `attachment; filename=${fileName}`);
     res.set("Content-Type", "application/pdf");
-    writeStream(fileContents, res);
-    setCache(req, fileContents);
+    writeStream(fileContents as Buffer, res);
+    setCache(req, fileContents as Buffer);
   } catch (_error) {
     const error = _error as Error;
     console.log("error", error);

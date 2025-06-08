@@ -13,7 +13,7 @@ RUN apk add chromium \
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-RUN yarn add puppeteer@13.5.0
+RUN yarn add puppeteer@24.10.0
 
 FROM base as build
 
